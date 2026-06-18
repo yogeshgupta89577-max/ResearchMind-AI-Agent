@@ -21,7 +21,9 @@ Built using LangChain, Groq LLMs, Tavily Search, and Streamlit.
 
 ### Research Report Generation
 
-![Research Report](screenshots/report.png)
+![Research Report](screenshots/report1.png)
+
+![Research Report](screenshots/report2.png)
 
 ### Critic Feedback
 
