@@ -7,7 +7,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-llm = ChatGroq(model="llama-3.3-70b-versatile",temperature=0)
+llm = ChatGroq(model="meta-llama/llama-4-scout-17b-16e-instruct",
+               temperature=0,
+               max_tokens=2500)
 
 ## make 1st agent ##
 def build_search_agent():
@@ -28,18 +30,44 @@ def build_reader_agent():
 
 writer_prompt = ChatPromptTemplate.from_messages([
     ("system", "You are an expert research writer. write clear, structured and insightful reports."),
-    ("human", """write a detailed research report on the topic below.
-     
-Topic: {topic}
-     
-research Gathered: {research}
-Structure the report as:
-- Introduction
-- Key Findings(minimum 3 well explained points)
-- Conclusion
--Sources(list all urls found in the research)
+    ("human", """write a comprehensive research report on the topic below.
 
-Be detailed, factual and professional."""),
+Topic: {topic}
+
+Research Gathered:
+{research}
+
+Create a professional research report with the following structure:
+
+# Executive Summary
+
+# Introduction
+
+# Current State of the Field
+
+# Key Findings
+
+(At least 5 detailed findings with explanations)
+
+# Industry Applications
+
+# Challenges and Risks
+
+# Future Outlook
+
+# Conclusion
+
+# References
+
+Requirements:
+
+* Use evidence from the gathered research.
+* Include examples, statistics and real-world use cases whenever available.
+* Explain findings in detail.
+* Use professional formatting and headings.
+* Minimum 1200 words.
+* Cite all URLs in the References section.
+"""),
 ])
 
 parser = StrOutputParser()
@@ -51,22 +79,45 @@ writer_chain = writer_prompt | llm | parser
 
 critic_prompt = ChatPromptTemplate.from_messages([
     ("system", "You are a sharp and constructive research critic. be honest and specific."),
-    ("human", """Review the research report below and evaluate it strictly.
-Report: {report}
-     
-Respond in this exact format:
-     
+    ("human", """Review the research report below.
+
+Report:
+{report}
+
+Evaluate on:
+
+1. Research Depth
+2. Source Quality
+3. Evidence Usage
+4. Structure
+5. Clarity
+6. Practical Insights
+
+Respond exactly in this format:
+
 Score: X/10
-     
+
 Strengths:
--...
--...
-     
-Area to Improve
--...
--...
-     
-One line verdict:..."""),
+
+* ...
+* ...
+* ...
+
+Weaknesses:
+
+* ...
+* ...
+* ...
+
+Improvement Suggestions:
+
+* ...
+* ...
+* ...
+
+One Line Verdict:
+...
+"""),
 ])
 
 

@@ -31,7 +31,10 @@ def run_research_pipeline(topic: str) -> dict:
     reader_result = reader_agent.invoke({
         "messages": [("user",
             f"Based on the following search results about '{topic}', "
-            f"pick the most relevant URL and scrape it for deeper content.\n\n"
+            f"""Pick the top 3 most relevant URLs.
+            Scrape all 3 URLs.
+            Summarize the key information from each source.
+            Combine the findings into a single research context.\n\n"""
             f"Search results:\n{state['search_results'][:800]}"
         )]
         
