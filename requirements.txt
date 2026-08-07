@@ -39,3 +39,6 @@ typing-extensions>=4.14.1
 
 
 rich>=14.0.0
+
+langchain-openai
+openai

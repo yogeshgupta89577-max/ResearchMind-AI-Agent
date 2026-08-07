@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-llm = ChatGroq(model="meta-llama/llama-4-scout-17b-16e-instruct",
+llm = ChatGroq(model="llama-3.1-8b-instant",
                temperature=0,
                max_tokens=2500)
 
