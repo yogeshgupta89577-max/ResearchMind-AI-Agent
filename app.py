@@ -422,10 +422,18 @@ if st.session_state.running and not st.session_state.done:
     with st.spinner("📄  Reader Agent is scraping top resources…"):
         reader_agent = build_reader_agent()
         rr = reader_agent.invoke({
-            "messages": [("user",
-                f"Based on the following search results about '{topic_val}', "
-                f"pick the most relevant URL and scrape it for deeper content.\n\n"
-                f"Search Results:\n{results['search'][:800]}"
+        "messages": [(
+            "user",
+            f"""Research topic: {topic_val}
+
+        From the search results below, select ONE most relevant URL.
+        Use the scrape_url tool on that URL.
+        Extract only the most important facts, statistics, findings, and insights.
+        Return a concise research context. Do not reproduce the full webpage.
+
+        Search Results:
+        {results['search'][:800]}
+        """
             )]
         })
         results["reader"] = rr["messages"][-1].content

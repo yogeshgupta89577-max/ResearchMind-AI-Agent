@@ -9,7 +9,7 @@ load_dotenv()
 
 llm = ChatGroq(model="openai/gpt-oss-20b",
                temperature=0,
-               max_tokens=2500)
+               max_tokens=1000)
 
 ## make 1st agent ##
 def build_search_agent():
