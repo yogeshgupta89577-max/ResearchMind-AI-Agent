@@ -9,7 +9,7 @@ load_dotenv()
 
 llm = ChatGroq(model="openai/gpt-oss-20b",
                temperature=0,
-               max_tokens=1000)
+               max_tokens=800)
 
 ## make 1st agent ##
 def build_search_agent():
@@ -65,7 +65,7 @@ Requirements:
 * Include examples, statistics and real-world use cases whenever available.
 * Explain findings in detail.
 * Use professional formatting and headings.
-* Minimum 1200 words.
+* Minimum 800 words.
 * Cite all URLs in the References section.
 """),
 ])
